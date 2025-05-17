@@ -64,12 +64,16 @@ def filter_objects(data, homography, red_line, frame_width, frame_height, is_rig
             bottom_middle = [(bbox[0] + bbox[2]) / 2, bbox[3]]  # Centroid width coordinate
             transformed_point = transform_point(bottom_middle, homography)
             x_trans, y_trans = transformed_point
+            
 
-            # Determine if the object is in the intersection
             if is_right:
-                in_intersection = (0 < x_trans < red_line and is_point_within_bounds(transformed_point, frame_width, frame_height))
+                if x_trans < 25:
+                    continue  # Skip this object if it's beyond the red line on the right
+                in_intersection = (25 < x_trans < red_line and is_point_within_bounds(transformed_point, frame_width, frame_height))
             else:
-                in_intersection = (red_line < x_trans < frame_width and is_point_within_bounds(transformed_point, frame_width, frame_height))
+                if x_trans > frame_width - 25:
+                    continue  # Skip this object if it's before the red line on the left
+                in_intersection = (red_line < x_trans < frame_width - 25 and is_point_within_bounds(transformed_point, frame_width, frame_height))
 
             if in_intersection:
                 obj["color"] = COLORS["right_intersection"] if is_right else COLORS["left_intersection"]
@@ -90,7 +94,7 @@ def main():
     blue_line_right, width_right, blue_line_left, width_left, homography_left, homography_right = load_dimensions_and_homographies()
 
     # Offset for red line calculation
-    offset_x = blue_line_right  # First number from the first line of dimensions.txt
+    offset_x = blue_line_right / 6 # First number from the first line of dimensions.txt
 
     # Compute red line indexes
     red_line_right = blue_line_right + offset_x

@@ -20,7 +20,7 @@ def calculate_iou(bbox1, bbox2):
 
     return intersection / union if union != 0 else 0
 
-def remove_low_conf_objects(json_file, output_file, iou_threshold=0.95):
+def remove_low_conf_objects(json_file, output_file, iou_threshold=0.80):
     with open(json_file, 'r') as file:
         data = json.load(file)
 
@@ -63,7 +63,7 @@ def remove_low_conf_objects(json_file, output_file, iou_threshold=0.95):
 
 def main():
     input_file = "borderfiltered_merged_output_with_transformed_center.json"  # Replace with the path to your JSON file
-    output_file = "95_final.json"  # Replace with the desired output file name
+    output_file = "80_final.json"  # Replace with the desired output file name
 
     remove_low_conf_objects(input_file, output_file)
 
@@ -73,7 +73,7 @@ def main():
 
 if __name__ == "__main__":
     input_file = "borderfiltered_merged_output_with_transformed_center.json"  # Replace with the path to your JSON file
-    output_file = "98.json"  # Replace with the desired output file name
+    output_file = "80_final.json"  # Replace with the desired output file name
 
     remove_low_conf_objects(input_file, output_file)
 

@@ -353,7 +353,7 @@ def final_index_matching(teams, player_positions,
 
                     break
         
-        # Within each cluster, sort players by their x coordinate (increasing).
+        # Within each cluster, sort players by their y coordinate (increasing).
         for cluster in assignments_by_cluster:
             assignments_by_cluster[cluster] = sorted(assignments_by_cluster[cluster], key=lambda tup: tup[1])
         

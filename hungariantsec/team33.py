@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from tqdm import tqdm
 from sklearn.cluster import KMeans
 
+#TODO 4 MULTITHREADING VE 2 AYNI VIDEODA ISLEME EKLENECEK
 
 class TeamAssigner:
     def __init__(self, team_colors_file):
@@ -153,7 +154,7 @@ def process_video_with_json(video_path, json_path, output_json, team_assigner, s
 
 if __name__ == "__main__":
     video_json_pairs = [
-        ("left5shifted.mp4", "left_non_intersections.json"),
+        ("video_rightlong.mp4", "right_non_intersections.json"),
     ]
 
     team_colors_file = "team_colors.json"

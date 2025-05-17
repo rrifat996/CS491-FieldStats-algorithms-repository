@@ -67,7 +67,14 @@ def merge_jsons(json_files, homography_matrix_left, homography_matrix_right):
 
                 # Compute transformed center using the appropriate homography matrix
                 homography_matrix = homography_matrix_left if source == "left" else homography_matrix_right
-                obj["transformed_center"] = transform_point(obj["center"], homography_matrix)
+
+                bbox = obj["bbox"]
+                bottom_middle = [
+                    (bbox[0] + bbox[2]) / 2,  # x: middle between left and right
+                    bbox[3]                  # y: bottom of the box
+                ]
+
+                obj["transformed_center"] = transform_point(bottom_middle, homography_matrix)
 
                 # Apply filtering
                 transformed_center_x = obj["transformed_center"][0]

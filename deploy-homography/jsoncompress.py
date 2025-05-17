@@ -18,8 +18,8 @@ def round_floats(obj):
         return obj
 
 def main():
-    input_file = "95_final.json"
-    output_file = "95_iou_compressed.json"
+    input_file = "80_final.json"
+    output_file = "80_iou_compressed.json"
 
     # Read the original JSON file
     with open(input_file, "r") as f:
@@ -50,14 +50,13 @@ def main():
         
         # Process each object in the frame with tqdm progress bar
         for obj in frame.get("obj", []):
-            # Remove unwanted keys
-            for key in ["class_id", "confidence", "center", "color"]:
+            # Remove unwanted keys (but keep 'color')
+            for key in ["class_id", "confidence", "center"]:
                 obj.pop(key, None)
             
-            # Rename 'source' to 'src' and convert its value if it's "left" or "right".
+            # Remove the 'source' key (no 'src' is added)
             if "source" in obj:
-                source_value = obj.pop("source")
-                obj["src"] = 0 if source_value == "left" else 1 if source_value == "right" else source_value
+                obj.pop("source")
             
             # Rename 'transformed_center' to 't_c'
             if "transformed_center" in obj:

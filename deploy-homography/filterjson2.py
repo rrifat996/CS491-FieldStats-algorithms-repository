@@ -90,7 +90,7 @@ def compare_and_filter_objects(left_json, right_json, homography_matrix_left, ho
                 matched_right_objects += 1
             else:
                 # Exclude unmatched right object if its transformed width coordinate is less than 10
-                if right_transformed_with_offset[0] >= 350:
+                if right_transformed_with_offset[0] >= 390:
                     right_obj["color"] = "orange"
                     new_right_objects.append(right_obj)
 
